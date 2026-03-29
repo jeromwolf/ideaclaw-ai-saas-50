@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AI-powered developer tools that help small teams generate enterprise-scale revenue. Automate coding, debugging, and deployment with intelligent automation.">
+  <title>DevAI Suite — Small Team. Enterprise Revenue.</title>
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f5f3ff',
+              100: '#ede9fe',
+              200: '#ddd6fe',
+              300: '#c4b5fd',
+              400: '#a78bfa',
+              500: '#8b5cf6',
+              600: '#7c3aed',
+              700: '#6d28d9',
+              800: '#5b21b6',
+              900: '#4c1d95',
+            },
+            accent: '#EC4899',
+            dark: {
+              900: '#0A0E1A',
+              800: '#0F1328',
+              700: '#141937',
+              600: '#1C2045',
+            }
+          },
+          fontFamily: {
+            display: ['"Outfit"', 'system-ui', 'sans-serif'],
+            body: ['"Source Sans 3"', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          animation: {
+            'pulse-slow': 'pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'float': 'float 6s ease-in-out infinite',
+            'fade-in-up': 'fade-in-up 0.7s ease-out forwards',
+            'shimmer': 'shimmer 2.5s linear infinite',
+          },
+          keyframes: {
+            'pulse-slow': {
+              '0%, 100%': { opacity: '1' },
+              '50%': { opacity: '0.85' },
+            },
+            'float': {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-12px)' },
+            },
+            'fade-in-up': {
+              '0%': { opacity: '0', transform: 'translateY(24px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+            'shimmer': {
+              '0%': { backgroundPosition: '-200% 0' },
+              '100%': { backgroundPosition: '200% 0' },
+            },
+          },
+        }
+      }
+    }
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* ---- Base ---- */
+    body {
+      font-family: 'Source Sans 3', system-ui, sans-serif;
+      background-color: #0A0E1A;
+      color: #e2e8f0;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, h5, h6, .font-display {
+      font-family: 'Outfit', system-ui, sans-serif;
+    }
+
+    /* ---- Gradient text utility ---- */
+    .text-gradient {
+      background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 40%, #EC4899 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .text-gradient-reverse {
+      background: linear-gradient(135deg, #EC4899 0%, #a78bfa 50%, #7c3aed 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ---- Gradient backgrounds ---- */
+    .bg-gradient-brand {
+      background: linear-gradient(135deg, #7c3aed 0%, #EC4899 100%);
+    }
+
+    .bg-gradient-brand-hover:hover {
+      background: linear-gradient(135deg, #6d28d9 0%, #db2777 100%);
+    }
+
+    /* ---- Orbs ---- */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.18;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .orb-hero-1 {
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, #7c3aed 0%, transparent 70%);
+      top: -120px;
+      left: 50%;
+      transform: translateX(-70%);
+    }
+
+    .orb-hero-2 {
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, #EC4899 0%, transparent 70%);
+      top: 60px;
+      right: -80px;
+      opacity: 0.12;
+    }
+
+    .orb-cta {
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, #7c3aed 0%, #EC4899 40%, transparent 70%);
+      bottom: -200px;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0.14;
+    }
+
+    /* ---- Glass card ---- */
+    .card-glass {
+      background: rgba(15, 19, 40, 0.6);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(124, 58, 237, 0.12);
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .card-glass:hover {
+      transform: translateY(-4px);
+      border-color: rgba(124, 58, 237, 0.3);
+      box-shadow:
+        0 8px 32px rgba(124, 58, 237, 0.12),
+        0 0 0 1px rgba(124, 58, 237, 0.1);
+    }
+
+    /* ---- Gradient top border on cards ---- */
+    .card-gradient-top {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-gradient-top::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #7c3aed 0%, #EC4899 50%, #7c3aed 100%);
+      background-size: 200% 100%;
+      animation: shimmer 2.5s linear infinite;
+    }
+
+    /* ---- CTA Pulse ---- */
+    .btn-pulse {
+      animation: btn-glow 3s ease-in-out infinite;
+    }
+
+    @keyframes btn-glow {
+      0%, 100% {
+        box-shadow: 0 0 20px rgba(124, 58, 237, 0.3), 0 0 60px rgba(124, 58, 237, 0.1);
+      }
+      50% {
+        box-shadow: 0 0 30px rgba(124, 58, 237, 0.5), 0 0 80px rgba(236, 72, 153, 0.15);
+      }
+    }
+
+    /* ---- Steps connector line ---- */
+    .step-connector {
+      position: absolute;
+      left: 24px;
+      top: 56px;
+      bottom: -40px;
+      width: 2px;
+      background: linear-gradient(180deg, #7c3aed 0%, rgba(124, 58, 237, 0.1) 100%);
+    }
+
+    /* ---- Pricing card ring ---- */
+    .pricing-ring {
+      background: linear-gradient(135deg, rgba(124, 58, 237, 0.15) 0%, rgba(236, 72, 153, 0.1) 100%);
+      border: 1px solid rgba(124, 58, 237, 0.2);
+    }
+
+    .pricing-ring:hover {
+      border-color: rgba(124, 58, 237, 0.4);
+      box-shadow: 0 0 60px rgba(124, 58, 237, 0.1);
+    }
+
+    /* ---- Section fade-in with Intersection Observer ---- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ---- Input focus ring ---- */
+    input:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px #7c3aed, 0 0 20px rgba(124, 58, 237, 0.15);
+    }
+
+    /* ---- Nav blur ---- */
+    .nav-blur {
+      backdrop-filter: saturate(180%) blur(14px);
+      -webkit-backdrop-filter: saturate(180%) blur(14px);
+      background: rgba(10, 14, 26, 0.78);
+      border-bottom: 1px solid rgba(124, 58, 237, 0.08);
+    }
+
+    /* ---- Noise texture overlay ---- */
+    .noise::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      opacity: 0.025;
+      pointer-events: none;
+      z-index: 9999;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 256px;
+    }
+
+    /* ---- Stat divider ---- */
+    .stat-divider {
+      width: 1px;
+      height: 48px;
+      background: linear-gradient(180deg, transparent 0%, rgba(124, 58, 237, 0.3) 50%, transparent 100%);
+    }
+
+    /* ---- Custom scrollbar ---- */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0A0E1A; }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(124, 58, 237, 0.3);
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(124, 58, 237, 0.5); }
+
+    /* ---- Number badge for steps ---- */
+    .step-number {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #7c3aed 0%, #EC4899 100%);
+      font-family: 'Outfit', system-ui, sans-serif;
+      font-weight: 700;
+      font-size: 1.125rem;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    /* ---- Pricing list check ---- */
+    .pricing-list li {
+      position: relative;
+      padding-left: 28px;
+      margin-bottom: 12px;
+      color: #c4b5fd;
+      font-size: 0.95rem;
+    }
+
+    .pricing-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 5px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #7c3aed, #EC4899);
+      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z'/%3E%3C/svg%3E");
+      -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z'/%3E%3C/svg%3E");
+      mask-size: contain;
+      -webkit-mask-size: contain;
+    }
+  </style>
+</head>
+
+<body class="noise antialiased">
+
+  <!-- ============================================================
+       NAVIGATION
+       ============================================================ -->
+  <nav class="nav-blur fixed top-0 left-0 right-0 z-50">
+    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+
+      <!-- Logo -->
+      <a href="#" class="font-display font-bold text-xl text-gradient tracking-tight">
+        DevAI Suite
+      </a>
+
+      <!-- Desktop Nav -->
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#features" class="text-sm text-slate-400 hover:text-white transition-colors duration-200">Features</a>
+        <a href="#pricing" class="text-sm text-slate-400 hover:text-white transition-colors duration-200">Pricing</a>
+        <a href="#waitlist" class="text-sm text-slate-400 hover:text-white transition-colors duration-200">Waitlist</a>
+        <a href="#waitlist"
+           class="bg-gradient-brand bg-gradient-brand-hover text-white text-sm font-semibold px-5 py-2 rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-brand-600/20">
+          Join Waitlist
+        </a>
+      </div>
+
+      <!-- Mobile menu button -->
+      <button id="mobile-menu-btn" class="md:hidden text-slate-400 hover:text-white" aria-label="Toggle menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Nav -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-brand-900/30 px-6 pb-4">
+      <a href="#features" class="block py-2 text-sm text-slate-400 hover:text-white">Features</a>
+      <a href="#pricing" class="block py-2 text-sm text-slate-400 hover:text-white">Pricing</a>
+      <a href="#waitlist" class="block py-2 text-sm text-slate-400 hover:text-white">Waitlist</a>
+      <a href="#waitlist"
+         class="mt-2 block text-center bg-gradient-brand text-white text-sm font-semibold px-5 py-2.5 rounded-lg">
+        Join Waitlist
+      </a>
+    </div>
+  </nav>
+
+
+  <!-- ============================================================
+       HERO SECTION
+       ============================================================ -->
+  <section class="relative min-h-screen flex items-center justify-center pt-16 overflow-hidden">
+
+    <!-- Orbs -->
+    <div class="orb orb-hero-1 animate-float" aria-hidden="true"></div>
+    <div class="orb orb-hero-2" aria-hidden="true" style="animation: float 8s ease-in-out infinite 1s;"></div>
+
+    <div class="relative z-10 max-w-4xl mx-auto px-6 text-center py-24 md:py-32">
+
+      <!-- Category Badge -->
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-brand-600/30 bg-brand-900/30 mb-8 animate-fade-in-up">
+        <span class="w-2 h-2 rounded-full bg-gradient-brand animate-pulse-slow"></span>
+        <span class="text-xs font-medium text-brand-300 tracking-wide uppercase font-display">AI Developer Tools</span>
+      </div>
+
+      <!-- Headline -->
+      <h1 class="font-display font-extrabold text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.08] tracking-tight mb-6 animate-fade-in-up"
+          style="animation-delay: 0.1s;">
+        <span class="text-gradient">Small Team. Enterprise Revenue.</span>
+      </h1>
+
+      <!-- Subtitle -->
+      <p class="max-w-2xl mx-auto text-lg md:text-xl text-slate-400 leading-relaxed mb-10 animate-fade-in-up"
+         style="animation-delay: 0.2s;">
+        Deploy AI-powered development tools that automate coding, debugging, and deployment. Scale to $100M ARR with minimal headcount.
+      </p>
+
+      <!-- CTAs -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up"
+           style="animation-delay: 0.3s;">
+        <a href="#waitlist"
+           class="btn-pulse bg-gradient-brand bg-gradient-brand-hover text-white font-semibold px-8 py-3.5 rounded-xl text-base transition-all duration-300 hover:scale-[1.03]">
+          Join Waitlist
+        </a>
+        <a href="#features"
+           class="group border border-brand-600/30 hover:border-brand-500/50 text-brand-300 hover:text-white font-semibold px-8 py-3.5 rounded-xl text-base transition-all duration-300 bg-dark-800/50 hover:bg-dark-700/50">
+          Learn More
+          <span class="inline-block ml-1 transition-transform duration-200 group-hover:translate-x-1">&rarr;</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Bottom fade -->
+    <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-dark-900 to-transparent pointer-events-none z-10"></div>
+  </section>
+
+
+  <!-- ============================================================
+       SOCIAL PROOF / STATS BAR
+       ============================================================ -->
+  <section class="relative z-10 -mt-8 mb-20">
+    <div class="max-w-3xl mx-auto px-6 reveal">
+      <div class="card-glass rounded-2xl px-8 py-6 flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-0">
+
+        <!-- Stat 1 -->
+        <div class="flex-1 text-center">
+          <p class="font-display font-bold text-xl md:text-2xl text-white">$8.5B TAM</p>
+        </div>
+
+        <div class="stat-divider hidden sm:block" aria-hidden="true"></div>
+
+        <!-- Stat 2 -->
+        <div class="flex-1 text-center">
+          <p class="font-display font-bold text-xl md:text-2xl text-white">25 Employees to $100M ARR</p>
+        </div>
+
+        <div class="stat-divider hidden sm:block" aria-hidden="true"></div>
+
+        <!-- Stat 3 -->
+        <div class="flex-1 text-center">
+          <p class="font-display font-bold text-xl md:text-2xl text-white">12x Faster Development Cycles</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       FEATURES SECTION
+       ============================================================ -->
+  <section id="features" class="relative py-24 md:py-32 overflow-hidden">
+    <div class="max-w-6xl mx-auto px-6">
+
+      <!-- Section header -->
+      <div class="text-center mb-16 reveal">
+        <p class="text-sm font-semibold text-brand-400 uppercase tracking-widest mb-3 font-display">Core Features</p>
+        <h2 class="font-display font-extrabold text-3xl md:text-5xl tracking-tight">
+          Why <span class="text-gradient">DevAI Suite</span>?
+        </h2>
+      </div>
+
+      <!-- Cards Grid -->
+      <div class="grid md:grid-cols-3 gap-6 md:gap-8">
+
+        <!-- Feature 1 -->
+        <div class="card-glass card-gradient-top rounded-2xl p-8 reveal" style="transition-delay: 0.05s;">
+          <div class="text-4xl mb-5">⚡</div>
+          <h3 class="font-display font-bold text-xl text-white mb-3">Intelligent Code Generation</h3>
+          <p class="text-slate-400 leading-relaxed text-[0.95rem]">AI writes, reviews, and optimizes code in real-time across your entire codebase.</p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="card-glass card-gradient-top rounded-2xl p-8 reveal" style="transition-delay: 0.15s;">
+          <div class="text-4xl mb-5">🐛</div>
+          <h3 class="font-display font-bold text-xl text-white mb-3">Automated Bug Detection</h3>
+          <p class="text-slate-400 leading-relaxed text-[0.95rem]">Catch and fix vulnerabilities before they reach production with predictive analysis.</p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="card-glass card-gradient-top rounded-2xl p-8 reveal" style="transition-delay: 0.25s;">
+          <div class="text-4xl mb-5">🚀</div>
+          <h3 class="font-display font-bold text-xl text-white mb-3">One-Click Deployment</h3>
+          <p class="text-slate-400 leading-relaxed text-[0.95rem]">Deploy with confidence using AI-powered testing and instant rollback capabilities.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       HOW IT WORKS
+       ============================================================ -->
+  <section id="how-it-works" class="relative py-24 md:py-32">
+    <div class="max-w-3xl mx-auto px-6">
+
+      <!-- Section header -->
+      <div class="text-center mb-16 reveal">
+        <p class="text-sm font-semibold text-brand-400 uppercase tracking-widest mb-3 font-display">Simple Process</p>
+        <h2 class="font-display font-extrabold text-3xl md:text-5xl tracking-tight text-white">
+          How It <span class="text-gradient-reverse">Works</span>
+        </h2>
+      </div>
+
+      <!-- Steps -->
+      <div class="space-y-12 md:space-y-16">
+
+        <!-- Step 1 -->
+        <div class="relative flex gap-6 items-start reveal">
+          <div class="relative">
+            <div class="step-number">1</div>
+            <div class="step-connector"></div>
+          </div>
+          <div class="pt-1">
+            <h3 class="font-display font-bold text-lg text-white mb-2">Connect Your Repository</h3>
+            <p class="text-slate-400 leading-relaxed">Link your GitHub, GitLab, or Bitbucket in seconds and let AI scan your entire codebase.</p>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="relative flex gap-6 items-start reveal">
+          <div class="relative">
+            <div class="step-number">2</div>
+            <div class="step-connector"></div>
+          </div>
+          <div class="pt-1">
+            <h3 class="font-display font-bold text-lg text-white mb-2">Enable AI Automation</h3>
+            <p class="text-slate-400 leading-relaxed">Activate intelligent features: code generation, debugging, testing, and deployment workflows.</p>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="relative flex gap-6 items-start reveal">
+          <div>
+            <div class="step-number">3</div>
+            <!-- No connector on last step -->
+          </div>
+          <div class="pt-1">
+            <h3 class="font-display font-bold text-lg text-white mb-2">Scale Your Revenue</h3>
+            <p class="text-slate-400 leading-relaxed">Watch productivity soar as your team ships 3x faster with 10x fewer errors.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       PRICING / VALUE PROPOSITION
+       ============================================================ -->
+  <section id="pricing" class="relative py-24 md:py-32 overflow-hidden">
+
+    <!-- Subtle orb -->
+    <div class="orb" style="width:500px;height:500px;background:radial-gradient(circle,#7c3aed 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);opacity:0.06;" aria-hidden="true"></div>
+
+    <div class="max-w-xl mx-auto px-6 relative z-10">
+
+      <!-- Section header -->
+      <div class="text-center mb-12 reveal">
+        <p class="text-sm font-semibold text-brand-400 uppercase tracking-widest mb-3 font-display">Pricing</p>
+        <h2 class="font-display font-extrabold text-3xl md:text-5xl tracking-tight text-white">
+          Plans That Grow With You
+        </h2>
+      </div>
+
+      <!-- Pricing Card -->
+      <div class="pricing-ring rounded-3xl p-8 md:p-10 text-center transition-all duration-500 reveal">
+
+        <!-- Price -->
+        <div class="mb-8">
+          <span class="font-display font-extrabold text-5xl md:text-6xl text-gradient">$49/month</span>
+        </div>
+
+        <!-- Features List -->
+        <ul class="pricing-list text-left max-w-xs mx-auto mb-10">
+                          <li class="flex items-center gap-3"><svg class="w-5 h-5 text-brand-400 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span>Unlimited code generation</span></li>
+                <li class="flex items-center gap-3"><svg class="w-5 h-5 text-brand-400 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span>Real-time bug detection</span></li>
+                <li class="flex items-center gap-3"><svg class="w-5 h-5 text-brand-400 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span>Automated testing & deployment</span></li>
+                <li class="flex items-center gap-3"><svg class="w-5 h-5 text-brand-400 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span>Team collaboration tools</span></li>
+                <li class="flex items-center gap-3"><svg class="w-5 h-5 text-brand-400 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span>Priority support</span></li>
+        </ul>
+
+        <!-- CTA -->
+        <a href="#waitlist"
+           class="inline-block bg-gradient-brand bg-gradient-brand-hover text-white font-semibold px-10 py-3.5 rounded-xl text-base transition-all duration-300 hover:scale-[1.03] hover:shadow-lg hover:shadow-brand-600/20">
+          Get Started
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       WAITLIST / CTA SECTION
+       ============================================================ -->
+  <section id="waitlist" class="relative py-24 md:py-32 overflow-hidden">
+
+    <!-- Orb -->
+    <div class="orb orb-cta" aria-hidden="true"></div>
+
+    <div class="max-w-2xl mx-auto px-6 relative z-10">
+      <div class="text-center reveal">
+
+        <h2 class="font-display font-extrabold text-3xl md:text-5xl tracking-tight mb-4">
+          Be the First to Try <span class="text-gradient">DevAI Suite</span>
+        </h2>
+
+        <p class="text-slate-400 text-lg leading-relaxed mb-10 max-w-lg mx-auto">
+          Join 5,000+ developers building enterprise-scale products. Early access starts next month.
+        </p>
+
+        <!-- Email Form -->
+        <form action="https://formspree.io/f/placeholder" method="POST" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto mb-4">
+          <input
+            type="email"
+            name="email"
+            required
+            placeholder="you@company.com"
+            class="flex-1 bg-dark-700/80 border border-brand-600/20 text-white placeholder-slate-500 rounded-xl px-5 py-3.5 text-base transition-all duration-200 focus:border-brand-500"
+          >
+          <button
+            type="submit"
+            class="btn-pulse bg-gradient-brand bg-gradient-brand-hover text-white font-semibold px-7 py-3.5 rounded-xl text-base transition-all duration-300 hover:scale-[1.03] whitespace-nowrap">
+            Join Waitlist
+          </button>
+        </form>
+
+        <p class="text-xs text-slate-500">We respect your privacy. No spam, ever.</p>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="border-t border-dark-600/50 py-12 md:py-16">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-8">
+
+        <!-- Left: Logo + Author -->
+        <div class="text-center md:text-left">
+          <a href="#" class="font-display font-bold text-lg text-gradient tracking-tight">DevAI Suite</a>
+          <p class="text-sm text-slate-500 mt-1">Built by IdeaClaw</p>
+        </div>
+
+        <!-- Center: Links -->
+        <div class="flex items-center gap-6 text-sm text-slate-500">
+          
+        </div>
+
+        <!-- Right: Powered by + Copyright -->
+        <div class="text-center md:text-right">
+          <p class="text-xs text-slate-600 mb-1">Powered by IdeaClaw</p>
+          <p class="text-xs text-slate-600">&copy; <span id="footer-year"></span> DevAI Suite. All rights reserved.</p>
+        </div>
+
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ============================================================
+       SCRIPTS
+       ============================================================ -->
+  <script>
+    // ---- Copyright year ----
+    document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+    // ---- Mobile menu toggle ----
+    const btn = document.getElementById('mobile-menu-btn');
+    const menu = document.getElementById('mobile-menu');
+    if (btn && menu) {
+      btn.addEventListener('click', () => menu.classList.toggle('hidden'));
+      menu.querySelectorAll('a').forEach(link =>
+        link.addEventListener('click', () => menu.classList.add('hidden'))
+      );
+    }
+
+    // ---- Intersection Observer for reveal animations ----
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+    );
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // ---- Smooth scroll polyfill for Safari ----
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
